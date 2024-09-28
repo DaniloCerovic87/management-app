@@ -1,12 +1,12 @@
 FROM openjdk:17-jdk-alpine
 
-RUN apk add --no-cache curl bash && \
-    curl -o /usr/local/bin/mvn https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.6/apache-maven-3.8.6-bin.zip && \
-    chmod +x /usr/local/bin/mvn
+RUN apk add --no-cache bash curl && \
+    curl -L -o maven.tar.gz https://www-eu.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz && \
+    tar xzvf maven.tar.gz -C /opt/ && \
+    ln -s /opt/apache-maven-3.8.6/bin/mvn /usr/bin/mvn && \
+    rm -rf maven.tar.gz
 
 WORKDIR /app
-
-COPY . .
 
 RUN ./mvnw clean install -DskipTests || mvn clean install -DskipTests
 
