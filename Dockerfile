@@ -10,6 +10,7 @@ WORKDIR /app
 
 RUN ./mvnw clean install -DskipTests || mvn clean install -DskipTests
 
+RUN ls -l target
 
 COPY target/management-app-0.0.1-SNAPSHOT.jar /app/management-app.jar
 
