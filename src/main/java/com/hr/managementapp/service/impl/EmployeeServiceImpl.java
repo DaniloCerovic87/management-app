@@ -102,6 +102,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Long id) throws EmployeeNotFoundException {
         try {
+            Department department = departmentRepository.findByTeamLeadId(id);
+            if (department != null) {
+                department.setTeamLead(null);
+            }
+
             employeeRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new EmployeeNotFoundException(NO_EMPLOYEE_FOUND);
