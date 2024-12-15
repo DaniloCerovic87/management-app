@@ -15,9 +15,9 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="department_id", nullable = false)
+    @Column(name = "department_id", nullable = false)
     private Long id;
-    @Column(name="department_name")
+    @Column(name = "department_name")
     private String name;
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Employee> employees;

@@ -5,7 +5,6 @@ import com.hr.managementapp.domain.Employee;
 import com.hr.managementapp.exception.domain.DepartmentNotFoundException;
 import com.hr.managementapp.exception.domain.DepartmentNotSelectedException;
 import com.hr.managementapp.exception.domain.EmployeeNotFoundException;
-import com.hr.managementapp.exception.domain.EmployeeNotHiredInDepartmentException;
 import com.hr.managementapp.form.EmployeeFilterForm;
 import com.hr.managementapp.mapper.EmployeeMapper;
 import com.hr.managementapp.repository.DepartmentRepository;
@@ -14,7 +13,6 @@ import com.hr.managementapp.request.CreateEmployeeRequest;
 import com.hr.managementapp.request.UpdateEmployeeRequest;
 import com.hr.managementapp.response.EmployeeBasicInfoResponse;
 import com.hr.managementapp.response.EmployeeResponse;
-import com.hr.managementapp.service.DepartmentService;
 import com.hr.managementapp.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,8 +23,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.hr.managementapp.constant.DepartmentConstant.*;
-import static com.hr.managementapp.constant.EmployeeConstant.*;
+import static com.hr.managementapp.constant.DepartmentConstant.NO_DEPARTMENT_FOUND;
+import static com.hr.managementapp.constant.DepartmentConstant.NO_DEPARTMENT_SELECTED;
+import static com.hr.managementapp.constant.EmployeeConstant.NO_EMPLOYEE_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -83,14 +82,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse updateEmployee(UpdateEmployeeRequest request) {
-        if(request.getDepartmentId() == null)
+        if (request.getDepartmentId() == null)
             throw new DepartmentNotSelectedException(NO_DEPARTMENT_SELECTED);
 
         Department chosenDepartment = departmentRepository.getById(request.getDepartmentId());
         Employee employeeDB = employeeRepository.getById(request.getId());
         Department departmentDB = departmentRepository.getById(employeeDB.getDepartment().getId());
 
-        if(!chosenDepartment.getId().equals(departmentDB.getId()) && employeeDB.isTeamLead()) {
+        if (!chosenDepartment.getId().equals(departmentDB.getId()) && employeeDB.isTeamLead()) {
             departmentDB.setTeamLead(null);
             departmentRepository.save(departmentDB);
         }

@@ -14,7 +14,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e JOIN e.department WHERE " +
             " (:name is null OR lower(e.name) LIKE CONCAT('%',lower(:name),'%')) AND " +
             " (e.department.id is null OR e.department.id = :departmentId)")
-
     List<Employee> findBySearch(@Param("name") String name,
                                 @Param("departmentId") Long departmentId);
 

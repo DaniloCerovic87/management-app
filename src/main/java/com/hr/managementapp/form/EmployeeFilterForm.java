@@ -11,7 +11,7 @@ public class EmployeeFilterForm {
     private String name;
     private Long departmentId;
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return StringUtils.isEmpty(name) && departmentId == null;
     }
 }

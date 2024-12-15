@@ -1,6 +1,5 @@
 package com.hr.managementapp.response;
 
-import com.hr.managementapp.domain.Department;
 import lombok.Data;
 
 import java.util.ArrayList;

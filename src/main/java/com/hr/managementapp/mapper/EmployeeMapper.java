@@ -1,7 +1,6 @@
 package com.hr.managementapp.mapper;
 
 import com.hr.managementapp.domain.Employee;
-import com.hr.managementapp.response.DepartmentBasicInfoResponse;
 import com.hr.managementapp.response.EmployeeBasicInfoResponse;
 import com.hr.managementapp.response.EmployeeResponse;
 

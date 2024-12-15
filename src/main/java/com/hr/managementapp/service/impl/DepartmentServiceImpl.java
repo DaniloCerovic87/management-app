@@ -18,18 +18,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.hr.managementapp.constant.DepartmentConstant.*;
-import static com.hr.managementapp.constant.EmployeeConstant.*;
+import static com.hr.managementapp.constant.DepartmentConstant.NO_DEPARTMENT_FOUND;
+import static com.hr.managementapp.constant.EmployeeConstant.EMPLOYEE_NOT_HIRED_IN_DEPARTMENT;
 
 @Service
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-    private final EmployeeRepository   employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public List<DepartmentBasicInfoResponse> getDepartments() {
@@ -64,11 +65,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Employee teamLead = null;
 
-        if( request.getTeamLeadId() != null) {
+        if (request.getTeamLeadId() != null) {
             teamLead = employeeRepository.getById(request.getTeamLeadId());
         }
 
-        if(StringUtils.isNotEmpty(request.getName())) {
+        if (StringUtils.isNotEmpty(request.getName())) {
             department.setName(request.getName());
         }
         setTeamLeadLogic(teamLead, department);
@@ -80,20 +81,20 @@ public class DepartmentServiceImpl implements DepartmentService {
      * in the case he/she is already hired in that department
      */
     private void setTeamLeadLogic(Employee potentialTeamLead, Department department) throws EmployeeNotHiredInDepartmentException {
-        if(potentialTeamLead == null || CollectionUtils.isEmpty(department.getEmployees())) {
+        if (potentialTeamLead == null || CollectionUtils.isEmpty(department.getEmployees())) {
             department.setTeamLead(null);
             return;
         }
 
         boolean hiredInThatDepartment = false;
-        for(Employee employee : department.getEmployees()) {
-            if(employee.getId().equals(potentialTeamLead.getId())) {
+        for (Employee employee : department.getEmployees()) {
+            if (employee.getId().equals(potentialTeamLead.getId())) {
                 department.setTeamLead(employee);
                 hiredInThatDepartment = true;
                 break;
             }
         }
-        if(!hiredInThatDepartment)
+        if (!hiredInThatDepartment)
             throw new EmployeeNotHiredInDepartmentException(EMPLOYEE_NOT_HIRED_IN_DEPARTMENT);
     }
 

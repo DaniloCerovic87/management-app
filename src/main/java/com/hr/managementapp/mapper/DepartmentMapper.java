@@ -4,7 +4,6 @@ import com.hr.managementapp.domain.Department;
 import com.hr.managementapp.request.CreateDepartmentRequest;
 import com.hr.managementapp.response.DepartmentBasicInfoResponse;
 import com.hr.managementapp.response.DepartmentResponse;
-import com.hr.managementapp.response.EmployeeBasicInfoResponse;
 
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ public class DepartmentMapper {
         DepartmentResponse departmentResponse = new DepartmentResponse();
         departmentResponse.setId(department.getId());
         departmentResponse.setName(department.getName());
-        departmentResponse.setEmployees( department.getEmployees().stream().map(EmployeeMapper::mapToBasicResponse).collect(Collectors.toList()));
+        departmentResponse.setEmployees(department.getEmployees().stream().map(EmployeeMapper::mapToBasicResponse).collect(Collectors.toList()));
         departmentResponse.setTeamLead(department.getTeamLead() != null ? EmployeeMapper.mapToBasicResponse(department.getTeamLead()) : null);
         return departmentResponse;
     }

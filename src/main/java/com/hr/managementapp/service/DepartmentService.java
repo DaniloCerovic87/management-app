@@ -1,6 +1,5 @@
 package com.hr.managementapp.service;
 
-import com.hr.managementapp.domain.Department;
 import com.hr.managementapp.exception.domain.DepartmentNotFoundException;
 import com.hr.managementapp.exception.domain.EmployeeNotHiredInDepartmentException;
 import com.hr.managementapp.request.CreateDepartmentRequest;

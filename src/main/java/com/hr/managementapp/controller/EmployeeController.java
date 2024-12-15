@@ -1,7 +1,7 @@
 package com.hr.managementapp.controller;
 
-import com.hr.managementapp.domain.Employee;
-import com.hr.managementapp.exception.domain.*;
+import com.hr.managementapp.exception.domain.EmployeeNotFoundException;
+import com.hr.managementapp.exception.domain.NotValidFilterFormException;
 import com.hr.managementapp.form.EmployeeFilterForm;
 import com.hr.managementapp.request.CreateEmployeeRequest;
 import com.hr.managementapp.request.UpdateEmployeeRequest;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
-import static com.hr.managementapp.constant.EmployeeConstant.*;
+import static com.hr.managementapp.constant.EmployeeConstant.EMPTY_EMPLOYEE_FILTER_FORM;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/employees")
@@ -45,7 +46,7 @@ public class EmployeeController {
     @ApiResponse(responseCode = "200", description = "Employee successfully retrieved")
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponse> getEmployee(@Parameter(description = "id of employee to be searched")
-                                                            @PathVariable(name = "id") Long id) {
+                                                        @PathVariable(name = "id") Long id) {
         EmployeeResponse employeeResponse = employeeService.getEmployeeById(id);
         return new ResponseEntity<>(employeeResponse, OK);
     }
@@ -78,10 +79,10 @@ public class EmployeeController {
     @ApiResponse(responseCode = "200", description = "Employees successfully retrieved")
     @GetMapping("/search")
     public ResponseEntity<List<EmployeeBasicInfoResponse>> findEmployeesBySearch(EmployeeFilterForm filterForm) throws NotValidFilterFormException {
-        if(filterForm.isEmpty())
+        if (filterForm.isEmpty())
             throw new NotValidFilterFormException(EMPTY_EMPLOYEE_FILTER_FORM);
 
-        List<EmployeeBasicInfoResponse> employeesResponse =  employeeService.findEmployeesBySearch(filterForm);
+        List<EmployeeBasicInfoResponse> employeesResponse = employeeService.findEmployeesBySearch(filterForm);
         return new ResponseEntity<>(employeesResponse, OK);
     }
 

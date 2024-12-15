@@ -1,15 +1,10 @@
 package com.hr.managementapp.controller;
 
-import com.hr.managementapp.exception.domain.DepartmentNotFoundException;
-import com.hr.managementapp.exception.domain.EmployeeNotFoundException;
-import com.hr.managementapp.exception.domain.EmployeeNotHiredInDepartmentException;
-import com.hr.managementapp.mapper.DepartmentMapper;
 import com.hr.managementapp.request.CreateDepartmentRequest;
 import com.hr.managementapp.request.UpdateDepartmentRequest;
 import com.hr.managementapp.response.DepartmentBasicInfoResponse;
 import com.hr.managementapp.response.DepartmentResponse;
 import com.hr.managementapp.service.DepartmentService;
-import com.hr.managementapp.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +33,7 @@ public class DepartmentController {
     @Operation(summary = "Get a department by its id")
     @ApiResponse(responseCode = "200", description = "Department successfully retrieved")
     @GetMapping("/{id}")
-    public ResponseEntity<DepartmentResponse> getDepartment(@PathVariable Long id)  {
+    public ResponseEntity<DepartmentResponse> getDepartment(@PathVariable Long id) {
         DepartmentResponse departmentResponse = departmentService.getDepartmentById(id);
         return new ResponseEntity<>(departmentResponse, OK);
     }

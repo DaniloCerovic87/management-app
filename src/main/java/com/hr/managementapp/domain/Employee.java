@@ -14,9 +14,9 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="employee_id")
+    @Column(name = "employee_id")
     private Long id;
-    @Column(name="personal_id")
+    @Column(name = "personal_id")
     private String personalId;
     @Column(name = "name")
     private String name;
@@ -31,7 +31,7 @@ public class Employee {
      */
     @PreRemove
     private void removeFromDepartmentIfIsTeamLead() {
-        if(isTeamLead())
+        if (isTeamLead())
             this.department.setTeamLead(null);
     }
 
@@ -39,7 +39,7 @@ public class Employee {
         return this.equals(this.getDepartment().getTeamLead());
     }
 
-        @Override
+    @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +

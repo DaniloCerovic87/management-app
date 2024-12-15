@@ -18,9 +18,9 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request";
     private static final String INTERNAL_SERVER_ERROR_MESSAGE = "An error occurred while processing the request";
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<HttpResponse> employeeNotFoundException(EmployeeNotFoundException ex) {

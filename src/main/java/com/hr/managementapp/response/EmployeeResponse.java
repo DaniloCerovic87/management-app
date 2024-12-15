@@ -1,6 +1,5 @@
 package com.hr.managementapp.response;
 
-import com.hr.managementapp.domain.Employee;
 import lombok.Data;
 
 @Data
