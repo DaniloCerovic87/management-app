@@ -30,10 +30,10 @@ public class OpenAPIConfig {
                         .description("API documentation for managing employees and departments"))
                 .paths(new Paths()
                         .addPathItem("/employees", generateEmployeesPathItem())
-                        .addPathItem("/employees/{id}", generateEmployeesSlashIdPathItem())
+                        .addPathItem("/employees/{id}", generateEmployeesByIdPathItem())
                         .addPathItem("/employees/search", generateEmployeesSearchPathItem())
                         .addPathItem("/departments", generateDepartmentsPathItem())
-                        .addPathItem("/departments/{id}", generateDepartmentsSlashIdPathItem())
+                        .addPathItem("/departments/{id}", generateDepartmentsByIdPathItem())
                 );
     }
 
@@ -88,7 +88,7 @@ public class OpenAPIConfig {
                         ));
     }
 
-    private PathItem generateEmployeesSlashIdPathItem() {
+    private PathItem generateEmployeesByIdPathItem() {
         return new PathItem()
                 .get(getEmployeeByIdOperation())
                 .delete(deleteEmployeeByIdOperation());
@@ -211,7 +211,7 @@ public class OpenAPIConfig {
                         ));
     }
 
-    private PathItem generateDepartmentsSlashIdPathItem() {
+    private PathItem generateDepartmentsByIdPathItem() {
         return new PathItem()
                 .get(getDepartmentByIdOperation())
                 .delete(deleteDepartmentByIdOperation());
